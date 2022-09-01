@@ -20,16 +20,25 @@ declare(strict_types=1);
  * with Hivelvet; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Actions\Roles;
+namespace Actions\Labels;
 
-use Actions\Delete as DeleteAction;
-use Actions\RequirePrivilegeTrait;
+use Actions\Base as BaseAction;
+use Models\Label;
 
 /**
- * Class Delete.
+ *Class Index.
  */
-class Delete extends DeleteAction
+class Index extends BaseAction
 {
-    use RequirePrivilegeTrait;
-    protected $deleteMethodName = 'delete';
+    /**
+     * @param \Base $f3
+     * @param array $params
+     */
+    public function show($f3, $params): void
+    {
+        $label  = new Label();
+        $labels = $label->getAllLabels();
+        $this->logger->debug('collecting labels', ['labels' => json_encode($labels)]);
+        $this->renderJson($labels);
+    }
 }

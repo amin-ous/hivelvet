@@ -20,7 +20,7 @@ declare(strict_types=1);
  * with Hivelvet; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Actions\Roles;
+namespace Actions\Labels;
 
 use Actions\Delete as DeleteAction;
 use Actions\RequirePrivilegeTrait;
@@ -31,5 +31,4 @@ use Actions\RequirePrivilegeTrait;
 class Delete extends DeleteAction
 {
     use RequirePrivilegeTrait;
-    protected $deleteMethodName = 'delete';
 }

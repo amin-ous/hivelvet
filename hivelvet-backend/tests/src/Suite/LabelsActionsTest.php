@@ -20,16 +20,20 @@ declare(strict_types=1);
  * with Hivelvet; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Actions\Roles;
+namespace Suite;
 
-use Actions\Delete as DeleteAction;
-use Actions\RequirePrivilegeTrait;
+use Actions\Labels\AddTest;
+use Actions\Labels\DeleteTest;
+use Actions\Labels\EditTest;
+use Test\TestGroup;
 
 /**
- * Class Delete.
+ * @internal
+ * @coversNothing
  */
-class Delete extends DeleteAction
+final class LabelsActionsTest extends TestGroup
 {
-    use RequirePrivilegeTrait;
-    protected $deleteMethodName = 'delete';
+    protected $classes = [AddTest::class, DeleteTest::class, EditTest::class];
+
+    protected $quiet = true;
 }

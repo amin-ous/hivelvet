@@ -20,16 +20,26 @@ declare(strict_types=1);
  * with Hivelvet; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Actions\Roles;
+use Phinx\Migration\AbstractMigration;
 
-use Actions\Delete as DeleteAction;
-use Actions\RequirePrivilegeTrait;
-
-/**
- * Class Delete.
- */
-class Delete extends DeleteAction
+final class CreateLabelsTable extends AbstractMigration
 {
-    use RequirePrivilegeTrait;
-    protected $deleteMethodName = 'delete';
+    public function up(): void
+    {
+        $table = $this->table('labels');
+        $table
+            ->addColumn('name', 'string', ['limit' => 32, 'null' => false])
+            ->addColumn('description', 'text', ['null' => true])
+            ->addColumn('color', 'string', ['limit' => 7, 'default' => '#fbbc0b'])
+            ->addColumn('created_on', 'datetime', ['default' => '0001-01-01 00:00:00', 'timezone' => true])
+            ->addColumn('updated_on', 'datetime', ['default' => '0001-01-01 00:00:00', 'timezone' => true])
+            ->addIndex('name', ['unique' => true, 'name' => 'idx_labels_name'])
+            ->save()
+        ;
+    }
+
+    public function down(): void
+    {
+        $this->table('labels')->drop()->save();
+    }
 }
